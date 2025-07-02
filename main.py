@@ -12,6 +12,8 @@ def index():
     if request.method == 'POST':
         target_username = request.form['target_username']
 
+L.context.proxy = "http://194.170.146.125:8080"
+
         try:
             L = instaloader.Instaloader()
 
