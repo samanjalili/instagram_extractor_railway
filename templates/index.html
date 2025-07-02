@@ -2,23 +2,21 @@
 <html lang="fa">
 <head>
     <meta charset="UTF-8">
-    <title>استخراج فالورهای اینستاگرام</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
-        input { padding: 10px; font-size: 16px; }
-        button { padding: 10px 20px; font-size: 16px; }
-    </style>
+    <title>تست استخراج فالورها با پروکسی</title>
 </head>
-<body>
-    <h2>📥 استخراج فالورهای اینستاگرام</h2>
+<body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+    <h2>📥 ورود و تست استخراج فالورها</h2>
     <form method="POST">
+        <input type="text" name="login_username" placeholder="یوزرنیم اینستاگرام" required><br><br>
+        <input type="password" name="login_password" placeholder="رمز عبور" required><br><br>
         <input type="text" name="target_username" placeholder="یوزرنیم پیج هدف" required><br><br>
-        <button type="submit">استخراج کن</button>
+        <button type="submit">🚀 تست با پروکسی</button>
     </form>
+
     {% if file_ready %}
-        <p>✅ استخراج انجام شد. <a href="/download">دانلود فایل</a></p>
+        <p>✅ فایل آماده است: <a href="/download">دانلود خروجی</a></p>
     {% elif error %}
-        <p style="color:red;">{{ error }}</p>
+        <p style="color:red;">❌ {{ error }}</p>
     {% endif %}
 </body>
 </html>
