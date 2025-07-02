@@ -18,7 +18,7 @@ def index():
             L = instaloader.Instaloader()
 
             # استفاده از پروکسی رایگان تستی
-            L.context.proxy = "http://194.170.146.125:8080"
+            L.context.proxy = "http://47.236.37.129:18081"
 
             # لاگین به اینستاگرام
             L.login(login_user, login_pass)
