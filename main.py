@@ -10,32 +10,35 @@ def index():
     error = None
 
     if request.method == 'POST':
+        login_user = request.form['login_username']
+        login_pass = request.form['login_password']
         target_username = request.form['target_username']
-
-L.context.proxy = "http://194.170.146.125:8080"
 
         try:
             L = instaloader.Instaloader()
 
-            # ورود با ENV
-            YOUR_USERNAME = os.environ.get('IG_USERNAME')
-            YOUR_PASSWORD = os.environ.get('IG_PASSWORD')
-            L.login(YOUR_USERNAME, YOUR_PASSWORD)
+            # استفاده از پروکسی رایگان تستی
+            L.context.proxy = "http://194.170.146.125:8080"
 
+            # لاگین به اینستاگرام
+            L.login(login_user, login_pass)
+
+            # دریافت پروفایل پیج هدف
             profile = instaloader.Profile.from_username(L.context, target_username)
             followers = list(profile.get_followers())
             followings = list(profile.get_followees())
 
+            # ذخیره در فایل
             os.makedirs('output', exist_ok=True)
             with open('output/result.txt', 'w', encoding='utf-8') as f:
-                f.write(f'🔸 تعداد فالورها: {len(followers)}\n')
-                f.write(f'🔸 تعداد فالووینگ‌ها: {len(followings)}\n\n')
+                f.write(f'🔹 تعداد فالورها: {len(followers)}\n')
+                f.write(f'🔹 تعداد فالووینگ‌ها: {len(followings)}\n\n')
                 f.write('🔸 لیست یوزرنیم‌های فالورها:\n')
                 for user in followers[:100]:
                     try:
-                        f.write(f" - {user.username}  🔹 فالوورها: {user.followers} | فالووینگ‌ها: {user.followees}\n")
+                        f.write(f" - {user.username} 🔹 فالوورها: {user.followers} | فالووینگ‌ها: {user.followees}\n")
                     except:
-                        f.write(f" - {user.username}  🔹 اطلاعات قابل بازیابی نیست\n")
+                        f.write(f" - {user.username} 🔹 اطلاعات در دسترس نیست\n")
 
             file_ready = True
 
@@ -49,4 +52,4 @@ def download():
     return send_file('output/result.txt', as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(debug=True, port=5000)
